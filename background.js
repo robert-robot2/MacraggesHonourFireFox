@@ -29,11 +29,75 @@ chrome.runtime.onInstalled.addListener(function () {
             interceptRegular: true,
             interceptAuto: true,
             interceptEmail: true,
-            showPopup: true
+            showPopup: true,
+            blockPopups: true
         }
     });
 });
+// =============================================
+// POPUP BLOCKER
+// =============================================
+function writePopupLog(attemptedUrl, sourceTab, popupType) {
+    chrome.storage.local.get('popupBlockLog', function (data) {
+        const log = data.popupBlockLog || [];
+        log.push({
+            datetime: new Date().toLocaleString(),
+            attemptedUrl: attemptedUrl || 'Unknown',
+            sourceTab: sourceTab || 'Unknown',
+            popupType: popupType
+        });
+        chrome.storage.local.set({ popupBlockLog: log });
+    });
+}
 
+chrome.tabs.onCreated.addListener(function (tab) {
+    chrome.storage.local.get(['masterEnabled', 'settings'], function (data) {
+        const masterEnabled = data.masterEnabled !== false;
+        const settings = data.settings || {};
+        const blockPopups = settings.blockPopups !== false;
+
+        if (!masterEnabled || !blockPopups) return;
+
+        // Whitelist our own extension pages
+        if (tab.url && tab.url.startsWith(chrome.runtime.getURL(''))) return;
+        if (tab.pendingUrl && tab.pendingUrl.startsWith(chrome.runtime.getURL(''))) return;
+
+        // Only block script-opened tabs (has an opener)
+        if (tab.openerTabId === undefined) return;
+
+        chrome.tabs.get(tab.openerTabId, function (openerTab) {
+            const sourceUrl = openerTab?.url || 'Unknown';
+            const blockedUrl = tab.url || tab.pendingUrl || 'Unknown';
+            chrome.tabs.remove(tab.id, function () {
+                writePopupLog(blockedUrl, sourceUrl, 'tab');
+            });
+        });
+    });
+});
+
+chrome.windows.onCreated.addListener(function (win) {
+    chrome.storage.local.get(['masterEnabled', 'settings'], function (data) {
+        const masterEnabled = data.masterEnabled !== false;
+        const settings = data.settings || {};
+        const blockPopups = settings.blockPopups !== false;
+
+        if (!masterEnabled || !blockPopups) return;
+
+        // Only block popup type windows, not normal browser windows
+        if (win.type !== 'popup') return;
+
+        chrome.tabs.query({ windowId: win.id }, function (tabs) {
+            const winUrl = tabs[0]?.url || tabs[0]?.pendingUrl || '';
+
+            // Whitelist our own extension pages
+            if (winUrl.startsWith(chrome.runtime.getURL(''))) return;
+
+            chrome.windows.remove(win.id, function () {
+                writePopupLog(winUrl, 'Unknown', 'window');
+            });
+        });
+    });
+});
 // =============================================
 // DOWNLOAD LOG
 // =============================================

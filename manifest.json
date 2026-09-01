@@ -8,11 +8,13 @@
   },
   "permissions": [
     "downloads",
+    "downloads.open",
     "storage",
     "tabs",
     "scripting",
     "search",
-    "bookmarks"
+    "bookmarks",
+    "favicon"
   ],
   "host_permissions": [
     "https://outlook.live.com/*",
@@ -21,6 +23,7 @@
     "https://www.virustotal.com/*"
   ],
   "background": {
+    "service_worker": "background.js",
     "scripts": [ "background.js" ]
   },
   "content_scripts": [
@@ -52,10 +55,5 @@
       ],
       "matches": [ "<all_urls>" ]
     }
-  ],
-  "browser_specific_settings": {
-    "gecko": {
-      "strict_min_version": "109.0"
-    }
-  }
+  ]
 }

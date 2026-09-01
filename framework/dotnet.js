@@ -5,7 +5,7 @@ var e=!1;const t=async()=>WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,
   "mainAssemblyName": "MacraggesHonourBlazor",
   "applicationEnvironment": "Development",
   "resources": {
-    "hash": "sha256-Hc8sdT8sGpw+/FgfdW18U5YRIpk8DlXxAKbm4u2rrWo=",
+    "hash": "sha256-hr7lFjFgsEyC5TtLFGBl7LpvSXwvvzmeFxnDvK6Hjis=",
     "jsModuleNative": [
       {
         "name": "dotnet.native.js"
@@ -1043,14 +1043,14 @@ var e=!1;const t=async()=>WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,
       {
         "virtualPath": "MacraggesHonourBlazor.wasm",
         "name": "MacraggesHonourBlazor.wasm",
-        "hash": "sha256-dMPlYor/YvuUks7AgbrIa8s2B6AXhKgC2umOqVT0yYk="
+        "hash": "sha256-jYMFNTMjtHhIr9KJMWLIBrSTUc+TGWwUjrAcpHqSxHc="
       }
     ],
     "pdb": [
       {
         "virtualPath": "MacraggesHonourBlazor.pdb",
         "name": "MacraggesHonourBlazor.pdb",
-        "hash": "sha256-PaTZ9Dfj+UN2AIbFUN06EFcjl7Ux0UsCUFz1z3Cjt54="
+        "hash": "sha256-zTnOC5Us2kLVcOLRhG/Ip9PiUJakyQgFl2VDczMexaM="
       }
     ],
     "libraryInitializers": [

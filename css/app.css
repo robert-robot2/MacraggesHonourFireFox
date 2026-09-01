@@ -332,3 +332,9 @@ h2 {
 
 
 
+/* Logger*/
+.log-section-divider {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 2px solid #444;
+}
