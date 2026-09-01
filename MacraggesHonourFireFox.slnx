@@ -1,0 +1,22 @@
+<Solution>
+  <Folder Name="/Icons/">
+    <File Path="Icons/Background001.png" />
+    <File Path="Icons/Icon128.png" />
+    <File Path="Icons/Icon16.png" />
+    <File Path="Icons/Icon48.png" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="background.js" />
+    <File Path="config.js" />
+    <File Path="content.js" />
+    <File Path="manifest.json" />
+    <File Path="popup.css" />
+    <File Path="popup.html" />
+    <File Path="popup.js" />
+    <File Path="README.md" />
+    <File Path="virustotal.js" />
+    <File Path="warning.css" />
+    <File Path="warning.html" />
+    <File Path="warning.js" />
+  </Folder>
+</Solution>
